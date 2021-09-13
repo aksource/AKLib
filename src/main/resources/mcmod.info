@@ -1,0 +1,21 @@
+[
+{
+  "modid": "ak-lib",
+  "name": "AKLib",
+  "description": "Library mod for AK's mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/aksource/AKLib/issues",
+  "updateUrl": "",
+  "authorList": [
+    "A.K."
+  ],
+  "credits": "By A.K.",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
