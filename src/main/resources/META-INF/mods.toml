@@ -1,0 +1,29 @@
+modLoader = "javafml" #mandatory
+loaderVersion = "[35,)" #mandatory (24 is current forge version)
+license = "MIT License"
+issueTrackerURL = "https://github.com/aksource/AkLib/issues" #optional
+displayURL = "https://github.com/aksource/AkLib/" #optional
+#logoFile="examplemod.png" #optional
+#credits="Thanks for this example mod goes to Java" #optional
+authors = "ak" #optional
+[[mods]] #mandatory
+modId = "ak-lib" #mandatory
+version = "1.16.4-1.0.0.0" #mandatory
+displayName = "AkLib" #mandatory
+#updateJSONURL="http://myurl.me/" #optional
+description = '''
+
+    '''
+[[dependencies.ak-lib]]
+modId = "forge"
+mandatory = true
+versionRange = "[35,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ak-lib]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.4,1.17)"
+ordering = "NONE"
+side = "BOTH"
