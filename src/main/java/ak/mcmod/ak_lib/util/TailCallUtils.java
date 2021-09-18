@@ -3,7 +3,7 @@ package ak.mcmod.ak_lib.util;
 /**
  * Created by A.K. on 2018/11/01.
  */
-public class TailCallUtil {
+public class TailCallUtils {
   public static <T> TailCall<T> nextCall(TailCall<T> function) {
     return function;
   }
