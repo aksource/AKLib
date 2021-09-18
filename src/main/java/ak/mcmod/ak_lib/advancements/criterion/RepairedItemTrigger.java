@@ -21,13 +21,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class RepairedItemTrigger extends AbstractCriterionTrigger<RepairedItemTrigger.Instance> {
+
   public static final ResourceLocation ID = new ResourceLocation(AkLib.MOD_ID, "repaired_item");
 
   @Override
-  protected Instance deserializeTrigger(JsonObject json, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser conditionsParser) {
-    ItemPredicate itemLeft = ItemPredicate.deserialize(json.get("item_left"));
-    ItemPredicate itemRight = ItemPredicate.deserialize(json.get("item_right"));
-    ItemPredicate itemOutput = ItemPredicate.deserialize(json.get("item_output"));
+  protected Instance createInstance(JsonObject json, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser conditionsParser) {
+    ItemPredicate itemLeft = ItemPredicate.fromJson(json.get("item_left"));
+    ItemPredicate itemRight = ItemPredicate.fromJson(json.get("item_right"));
+    ItemPredicate itemOutput = ItemPredicate.fromJson(json.get("item_output"));
     return new RepairedItemTrigger.Instance(entityPredicate, itemLeft, itemRight, itemOutput);
   }
 
@@ -37,7 +38,7 @@ public class RepairedItemTrigger extends AbstractCriterionTrigger<RepairedItemTr
   }
 
   public void trigger(ServerPlayerEntity player, ItemStack itemLest, ItemStack itemRight, ItemStack itemOutput) {
-    this.triggerListeners(player, (instance) -> instance.test(itemLest, itemRight, itemOutput));
+    this.trigger(player, (instance) -> instance.test(itemLest, itemRight, itemOutput));
   }
 
   public static class Instance extends CriterionInstance {
@@ -53,15 +54,15 @@ public class RepairedItemTrigger extends AbstractCriterionTrigger<RepairedItemTr
     }
 
     public boolean test(ItemStack itemLeft, ItemStack itemRight, ItemStack itemOutput) {
-      return this.itemLeft.test(itemLeft) && this.itemRight.test(itemRight) && this.itemOutput.test(itemOutput);
+      return this.itemLeft.matches(itemLeft) && this.itemRight.matches(itemRight) && this.itemOutput.matches(itemOutput);
     }
 
     @Override
-    public JsonObject serialize(ConditionArraySerializer conditions) {
-      JsonObject jsonobject = super.serialize(conditions);
-      jsonobject.add("item_left", this.itemLeft.serialize());
-      jsonobject.add("item_right", this.itemLeft.serialize());
-      jsonobject.add("item_output", this.itemLeft.serialize());
+    public JsonObject serializeToJson(ConditionArraySerializer conditions) {
+      JsonObject jsonobject = super.serializeToJson(conditions);
+      jsonobject.add("item_left", this.itemLeft.serializeToJson());
+      jsonobject.add("item_right", this.itemLeft.serializeToJson());
+      jsonobject.add("item_output", this.itemLeft.serializeToJson());
       return jsonobject;
     }
   }

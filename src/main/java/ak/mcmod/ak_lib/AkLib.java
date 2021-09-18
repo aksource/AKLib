@@ -3,6 +3,8 @@ package ak.mcmod.ak_lib;
 import ak.mcmod.ak_lib.advancements.criterion.RepairedItemTrigger;
 import ak.mcmod.ak_lib.common.ForgeModEntryPoint;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -15,7 +17,7 @@ public class AkLib extends ForgeModEntryPoint {
   public static final String MOD_ID = "ak-lib";
   @Override
   protected void setupConstructor(IEventBus eventBus) {
-
+    MinecraftForge.EVENT_BUS.register(AnvilRepairEvent.class);
   }
 
   @Override

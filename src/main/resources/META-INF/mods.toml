@@ -8,8 +8,8 @@ displayURL = "https://github.com/aksource/AkLib/" #optional
 authors = "ak" #optional
 [[mods]] #mandatory
 modId = "ak-lib" #mandatory
-version = "1.16.4-1.0.0.0" #mandatory
-displayName = "AkLib" #mandatory
+version = "1.16.4-1.0.1.0" #mandatory
+displayName = "AKLib" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 description = '''
 
