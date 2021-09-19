@@ -29,7 +29,7 @@ public class StringUtils {
   private static final Joiner AT_JOINER = Joiner.on('@');
   private static final Function<Entry<Property<?>, Comparable<?>>, String> functionBlockStateBase = ObfuscationReflectionHelper
       .getPrivateValue(
-          StateHolder.class, null, "PROPERTY_ENTRY_TO_STRING_FUNCTION");
+          StateHolder.class, null, "field_235890_a_");
   public static boolean isEmpty(CharSequence charSequence) {
     return org.apache.commons.lang3.StringUtils.isEmpty(charSequence);
   }
