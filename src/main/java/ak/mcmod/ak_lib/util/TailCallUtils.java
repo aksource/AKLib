@@ -9,7 +9,7 @@ public class TailCallUtils {
   }
 
   public static <T> TailCall<T> complete(T value) {
-    return new TailCall<T>() {
+    return new TailCall<>() {
       @Override
       public TailCall<T> apply() {
         throw new RuntimeException("error");

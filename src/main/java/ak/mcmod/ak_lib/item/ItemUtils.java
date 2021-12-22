@@ -1,9 +1,9 @@
 package ak.mcmod.ak_lib.item;
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -14,7 +14,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public final class ItemUtils {
-  private ItemUtils(){}
+  private ItemUtils() {}
 
 
   /**
@@ -23,9 +23,9 @@ public final class ItemUtils {
    * @param player プレイヤー
    * @param item   手持ちアイテム
    */
-  public static void destroyItem(PlayerEntity player, ItemStack item) {
+  public static void destroyItem(Player player, ItemStack item) {
     net.minecraftforge.event.ForgeEventFactory
-            .onPlayerDestroyItem(player, item, Hand.MAIN_HAND);
-    player.setItemInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+            .onPlayerDestroyItem(player, item, InteractionHand.MAIN_HAND);
+    player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
   }
 }

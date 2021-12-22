@@ -14,7 +14,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  */
 @Mod(AkLib.MOD_ID)
 public class AkLib extends ForgeModEntryPoint {
-  public static final String MOD_ID = "ak-lib";
+  public static final String MOD_ID = "ak_lib";
+
   @Override
   protected void setupConstructor(IEventBus eventBus) {
     MinecraftForge.EVENT_BUS.register(AnvilRepairEvent.class);

@@ -1,10 +1,10 @@
 package ak.mcmod.ak_lib.event;
 
 import ak.mcmod.ak_lib.advancements.criterion.RepairedItemTrigger;
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -21,11 +21,10 @@ public class AnvilRepairEventHandler {
 
   @SubscribeEvent
   public void onAnvilRepairEvent(AnvilRepairEvent event) {
-    if (event.getPlayer() instanceof ServerPlayerEntity) {
-      ICriterionTrigger<RepairedItemTrigger.Instance> criterionTrigger = CriteriaTriggers.getCriterion(RepairedItemTrigger.ID);
-      if (Objects.nonNull(criterionTrigger) && criterionTrigger instanceof RepairedItemTrigger) {
-        RepairedItemTrigger trigger = (RepairedItemTrigger) criterionTrigger;
-        trigger.trigger((ServerPlayerEntity) event.getPlayer(), event.getItemInput(), event.getIngredientInput(), event.getItemResult());
+    if (event.getPlayer() instanceof ServerPlayer) {
+      CriterionTrigger<RepairedItemTrigger.Instance> criterionTrigger = CriteriaTriggers.getCriterion(RepairedItemTrigger.ID);
+      if (Objects.nonNull(criterionTrigger) && criterionTrigger instanceof RepairedItemTrigger trigger) {
+        trigger.trigger((ServerPlayer) event.getPlayer(), event.getItemInput(), event.getIngredientInput(), event.getItemResult());
       }
     }
   }

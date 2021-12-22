@@ -1,17 +1,12 @@
 package ak.mcmod.ak_lib.advancements.criterion;
 
-import com.google.gson.JsonObject;
 import ak.mcmod.ak_lib.AkLib;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
-import net.minecraft.advancements.criterion.CriterionInstance;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.ConditionArrayParser;
-import net.minecraft.loot.ConditionArraySerializer;
-import net.minecraft.util.ResourceLocation;
+import com.google.gson.JsonObject;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.advancements.critereon.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -20,12 +15,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
  */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class RepairedItemTrigger extends AbstractCriterionTrigger<RepairedItemTrigger.Instance> {
+public class RepairedItemTrigger extends SimpleCriterionTrigger<RepairedItemTrigger.Instance> {
 
   public static final ResourceLocation ID = new ResourceLocation(AkLib.MOD_ID, "repaired_item");
 
   @Override
-  protected Instance createInstance(JsonObject json, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser conditionsParser) {
+  protected Instance createInstance(JsonObject json, EntityPredicate.Composite entityPredicate, DeserializationContext deserializationContext) {
     ItemPredicate itemLeft = ItemPredicate.fromJson(json.get("item_left"));
     ItemPredicate itemRight = ItemPredicate.fromJson(json.get("item_right"));
     ItemPredicate itemOutput = ItemPredicate.fromJson(json.get("item_output"));
@@ -37,16 +32,16 @@ public class RepairedItemTrigger extends AbstractCriterionTrigger<RepairedItemTr
     return ID;
   }
 
-  public void trigger(ServerPlayerEntity player, ItemStack itemLest, ItemStack itemRight, ItemStack itemOutput) {
+  public void trigger(ServerPlayer player, ItemStack itemLest, ItemStack itemRight, ItemStack itemOutput) {
     this.trigger(player, (instance) -> instance.test(itemLest, itemRight, itemOutput));
   }
 
-  public static class Instance extends CriterionInstance {
+  public static class Instance extends AbstractCriterionTriggerInstance {
     private final ItemPredicate itemLeft;
     private final ItemPredicate itemRight;
     private final ItemPredicate itemOutput;
 
-    public Instance(EntityPredicate.AndPredicate player, ItemPredicate itemLeft, ItemPredicate itemRight, ItemPredicate itemOutput) {
+    public Instance(EntityPredicate.Composite player, ItemPredicate itemLeft, ItemPredicate itemRight, ItemPredicate itemOutput) {
       super(RepairedItemTrigger.ID, player);
       this.itemLeft = itemLeft;
       this.itemRight = itemRight;
@@ -58,12 +53,12 @@ public class RepairedItemTrigger extends AbstractCriterionTrigger<RepairedItemTr
     }
 
     @Override
-    public JsonObject serializeToJson(ConditionArraySerializer conditions) {
-      JsonObject jsonobject = super.serializeToJson(conditions);
-      jsonobject.add("item_left", this.itemLeft.serializeToJson());
-      jsonobject.add("item_right", this.itemLeft.serializeToJson());
-      jsonobject.add("item_output", this.itemLeft.serializeToJson());
-      return jsonobject;
+    public JsonObject serializeToJson(SerializationContext conditions) {
+      var jsonObject = super.serializeToJson(conditions);
+      jsonObject.add("item_left", this.itemLeft.serializeToJson());
+      jsonObject.add("item_right", this.itemLeft.serializeToJson());
+      jsonObject.add("item_output", this.itemLeft.serializeToJson());
+      return jsonObject;
     }
   }
 }

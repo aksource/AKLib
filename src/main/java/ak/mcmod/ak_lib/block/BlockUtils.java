@@ -1,8 +1,8 @@
 package ak.mcmod.ak_lib.block;
 
 import com.google.common.collect.Sets;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Comparator;
@@ -15,14 +15,15 @@ import java.util.Set;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public final class BlockUtils {
-  private BlockUtils(){}
+  private BlockUtils() {}
 
   public static int compareTo(BlockPos origin, BlockPos blockPos1, BlockPos blockPos2) {
     return compareTo(blockPos1.subtract(origin), blockPos2.subtract(origin));
   }
+
   public static int compareTo(BlockPos blockPos1, BlockPos blockPos2) {
-    int manhattanDistance1 = BlockPos.ZERO.distManhattan(blockPos1);
-    int manhattanDistance2 = BlockPos.ZERO.distManhattan(blockPos2);
+    var manhattanDistance1 = BlockPos.ZERO.distManhattan(blockPos1);
+    var manhattanDistance2 = BlockPos.ZERO.distManhattan(blockPos2);
     if (manhattanDistance1 == manhattanDistance2) {
       return blockPos1.compareTo(blockPos2);
     } else {
@@ -36,9 +37,9 @@ public final class BlockUtils {
 
   public static Set<BlockPos> getBlockPosListWithinManhattan(BlockPos origin, int manhattanDistance) {
     Set<BlockPos> set = Sets.newHashSet();
-    for (int x = manhattanDistance * -1; x <= manhattanDistance; x++) {
-      for (int y = manhattanDistance * -1; y <= manhattanDistance; y++) {
-        for (int z = manhattanDistance * -1; z <= manhattanDistance; z++) {
+    for (var x = manhattanDistance * -1; x <= manhattanDistance; x++) {
+      for (var y = manhattanDistance * -1; y <= manhattanDistance; y++) {
+        for (var z = manhattanDistance * -1; z <= manhattanDistance; z++) {
           if (Math.abs(x) + Math.abs(y) + Math.abs(z) <= manhattanDistance) {
             set.add(origin.offset(x, y, z));
           }
