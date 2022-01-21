@@ -1,5 +1,5 @@
 modLoader = "javafml" #mandatory
-loaderVersion = "[37,)" #mandatory (24 is current forge version)
+loaderVersion = "[39,)" #mandatory (24 is current forge version)
 license = "MIT License"
 issueTrackerURL = "https://github.com/aksource/AkLib/issues" #optional
 displayURL = "https://github.com/aksource/AkLib/" #optional
@@ -8,7 +8,7 @@ displayURL = "https://github.com/aksource/AkLib/" #optional
 authors = "ak" #optional
 [[mods]] #mandatory
 modId = "ak_lib" #mandatory
-version = "1.17.1-1.0.2.0" #mandatory
+version = "1.18.1-1.0.2.1" #mandatory
 displayName = "AKLib" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 description = '''
@@ -17,13 +17,13 @@ description = '''
 [[dependencies.ak_lib]]
 modId = "forge"
 mandatory = true
-versionRange = "[37,)"
+versionRange = "[39,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ak_lib]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.17.1,1.18)"
+versionRange = "[1.18.1,1.19)"
 ordering = "NONE"
 side = "BOTH"

@@ -11,13 +11,13 @@ apply plugin: 'net.minecraftforge.gradle'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-def mc_version = '1.17.1'
-def forge_version = '37.1.1'
-version = "${mc_version}-1.0.2.0" as Object
+def mc_version = '1.18.1'
+def forge_version = '39.0.7'
+version = "${mc_version}-1.0.2.1" as Object
 group = 'ak.mcmod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'aklib'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     // the mappings can be changed at any time, and must be in the following format.
