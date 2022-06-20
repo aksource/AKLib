@@ -10,7 +10,7 @@ authors = "ak" #optional
 modId = "ak_lib" #mandatory
 version = "1.19-1.0.3.0" #mandatory
 displayName = "AKLib" #mandatory
-#updateJSONURL="http://myurl.me/" #optional
+updateJSONURL="https://raw.githubusercontent.com/aksource/AKLib/main/update.json"
 description = '''
 
     '''
