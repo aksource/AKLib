@@ -1,19 +1,11 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '5.1.+'
 }
-apply plugin: 'net.minecraftforge.gradle'
-//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-def mc_version = '1.18.1'
-def forge_version = '39.0.7'
-version = "${mc_version}-1.0.2.1" as Object
+def mc_version = '1.19'
+def forge_version = '41.0.37'
+version = "${mc_version}-1.0.3.0" as Object
 group = 'ak.mcmod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'aklib'
 
@@ -49,7 +41,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                'ak-lib' {
+                'ak_lib' {
                     source sourceSets.main
                 }
             }
@@ -71,7 +63,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                'ak-lib' {
+                'ak_lib' {
                     source sourceSets.main
                 }
             }
@@ -96,14 +88,14 @@ minecraft {
             args '--mod', 'chaindestruction', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                'ak-lib' {
+                'ak_lib' {
                     source sourceSets.main
                 }
             }
         }
     }
 }
-
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
@@ -114,20 +106,22 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter')
 
 }
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 jar.finalizedBy('reobfJar')
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes(["Specification-Title": "AkLib",
                     "Specification-Vendor": "ak",
-                    "Specification-Version": "${forge_version}",
+                    "Specification-Version": forge_version,
                     "Implementation-Title": project.name,
-                    "Implementation-Version": "${archiveVersion}",
+                    "Implementation-Version": archiveVersion,
                     "Implementation-Vendor" :"ak",
                     "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
 }
 test {
     useJUnitPlatform()
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

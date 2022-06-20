@@ -3,21 +3,19 @@ package ak.mcmod.ak_lib.util;
 import com.google.common.base.Joiner;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateHolder;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,6 +33,7 @@ public class StringUtils {
     return org.apache.commons.lang3.StringUtils.isEmpty(charSequence);
   }
 
+  @SuppressWarnings("unused")
   public static boolean isNotEmpty(CharSequence charSequence) {
     return !isEmpty(charSequence);
   }
@@ -52,23 +51,22 @@ public class StringUtils {
   public static List<String> makeStringDataFromBlockState(BlockState state) {
     var block = state.getBlock();
     var itemStack = new ItemStack(block, 1);
-    if (itemStack.getItem() == Items.AIR) {
-      return Collections.singletonList(makeString(state));
-    }
-    var owningTags = BlockTags.getAllTags().getMatchingTags(block);
-    if (!owningTags.isEmpty()) {
-      var stringList = owningTags.stream().map(ResourceLocation::toString).collect(Collectors.toList());
+    var tagManager = ForgeRegistries.BLOCKS.tags();
+    if (itemStack.getItem() != Items.AIR && Objects.nonNull(tagManager)) {
+      var tagOptional = tagManager.getReverseTag(block);
+      var stringList = new ArrayList<String>();
+      tagOptional.ifPresent(tag -> stringList.addAll(tag.getTagKeys().map(TagKey::location).map(ResourceLocation::toString).toList()));
       stringList.add(makeString(state));
       return stringList;
-    } else {
-      return Collections.singletonList(makeString(state));
     }
+    return Collections.singletonList(makeString(state));
   }
 
   private static String makeString(BlockState state) {
     var stringBuilder = new StringBuilder();
-    if (Objects.nonNull(state.getBlock().getRegistryName())) {
-      stringBuilder.append(state.getBlock().getRegistryName().toString());
+    var key = ForgeRegistries.BLOCKS.getKey(state.getBlock());
+    if (Objects.nonNull(key)) {
+      stringBuilder.append(key);
     }
 
     if (!state.getProperties().isEmpty()) {
@@ -123,9 +121,10 @@ public class StringUtils {
    * @param state 破壊対象判定IBlockState
    * @return 含まれていたらtrue
    */
+  @SuppressWarnings("unused")
   public static boolean match(Set<String> set, BlockState state) {
-    var block = state.getBlock();
-    var uidStr = getUniqueString(block.getRegistryName());
+    var key = ForgeRegistries.BLOCKS.getKey(state.getBlock());
+    var uidStr = getUniqueString(key);
     var uidMetaStr = state.toString();
     var tagNames = makeStringDataFromBlockState(state);
     return matchTagNames(set, tagNames) || matchBlockMetaNames(set, uidStr, uidMetaStr);
