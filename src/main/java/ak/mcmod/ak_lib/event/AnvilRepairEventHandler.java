@@ -21,10 +21,10 @@ public class AnvilRepairEventHandler {
 
   @SubscribeEvent
   public void onAnvilRepairEvent(AnvilRepairEvent event) {
-    if (event.getPlayer() instanceof ServerPlayer) {
+    if (event.getEntity() instanceof ServerPlayer) {
       CriterionTrigger<RepairedItemTrigger.Instance> criterionTrigger = CriteriaTriggers.getCriterion(RepairedItemTrigger.ID);
       if (Objects.nonNull(criterionTrigger) && criterionTrigger instanceof RepairedItemTrigger trigger) {
-        trigger.trigger((ServerPlayer) event.getPlayer(), event.getItemInput(), event.getIngredientInput(), event.getItemResult());
+        trigger.trigger((ServerPlayer) event.getEntity(), event.getLeft(), event.getRight(), event.getOutput());
       }
     }
   }
