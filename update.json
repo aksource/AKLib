@@ -1,7 +1,7 @@
 {
   "homepage": "https://github.com/aksource/AKLib",
   "1.19": {
-    "1.0.3.1": "bump up to forge 41.0.98"
+    "1.0.3.2": "bump up to forge 41.1.0"
   },
   "promos": {
     "1.18.1-latest": "1.0.2.1",
