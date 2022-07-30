@@ -2,7 +2,7 @@ name: announce
 
 on:
   release:
-    types: [released]
+    types: [published]
 
 jobs:
   tweet:
