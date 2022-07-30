@@ -25,7 +25,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          draft: false
+          draft: true
           files: |
             build/libs/*.jar
         env:
