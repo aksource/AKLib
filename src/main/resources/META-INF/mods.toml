@@ -8,7 +8,7 @@ displayURL = "https://github.com/aksource/AkLib/" #optional
 authors = "ak" #optional
 [[mods]] #mandatory
 modId = "ak_lib" #mandatory
-version = "1.19-1.0.3.1" #mandatory
+version = "1.19-1.0.3.2" #mandatory
 displayName = "AKLib" #mandatory
 updateJSONURL="https://raw.githubusercontent.com/aksource/AKLib/main/update.json"
 description = '''
