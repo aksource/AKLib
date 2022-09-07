@@ -1,15 +1,15 @@
-modLoader = "javafml" #mandatory
-loaderVersion = "[41,)" #mandatory (24 is current forge version)
+modLoader = "javafml"
+loaderVersion = "[${forge_major_ver},)"
 license = "MIT License"
-issueTrackerURL = "https://github.com/aksource/AkLib/issues" #optional
-displayURL = "https://github.com/aksource/AkLib/" #optional
+issueTrackerURL = "https://github.com/aksource/AkLib/issues"
+displayURL = "https://github.com/aksource/AkLib/"
 #logoFile="examplemod.png" #optional
 #credits="Thanks for this example mod goes to Java" #optional
-authors = "ak" #optional
-[[mods]] #mandatory
-modId = "ak_lib" #mandatory
-version = "1.19-1.0.3.2" #mandatory
-displayName = "AKLib" #mandatory
+authors = "ak"
+[[mods]]
+modId = "ak_lib"
+version = "${file.jarVersion}"
+displayName = "AKLib"
 updateJSONURL="https://raw.githubusercontent.com/aksource/AKLib/main/update.json"
 description = '''
 
